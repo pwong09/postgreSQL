@@ -1,0 +1,44 @@
+CREATE TABLE films (
+  name TEXT,
+  release_year INTEGER
+);
+
+INSERT INTO films (name, release_year) VALUES ('The Matrix', 1999);
+INSERT INTO films (name, release_year) VALUES  ('Monsters Inc', 2001);
+INSERT INTO films (name, release_year) VALUES  ('Call Me By Your Name', 2017);
+INSERT INTO films (name, release_year) VALUES  ('The Godfather', 1972);
+INSERT INTO films (name, release_year) VALUES  ('The Handmaiden', 2016);
+   
+ALTER TABLE films ADD COLUMN Runtime INTEGER;
+ALTER TABLE films ADD COLUMN Category TEXT;
+
+UPDATE films 
+SET runtime = 136
+    category = 'Action'
+WHERE name = 'The Matrix';
+
+UPDATE films 
+SET runtime = 175
+    category = 'Drama'
+WHERE name = 'The Godfather';
+
+
+UPDATE films 
+SET runtime = 144
+    category = 'Drama'
+WHERE name = 'The Handmaiden';
+
+UPDATE films 
+SET runtime = 96
+    category = 'Comedy'
+WHERE name = 'Monsters Inc';
+
+
+UPDATE films 
+SET runtime = 130
+    category = 'Drama'
+WHERE name = 'Call Me By Your Name';
+
+
+ALTER TABLE films
+ADD CONSTRAINT unique_name UNIQUE (name);
