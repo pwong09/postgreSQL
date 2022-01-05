@@ -1,8 +1,8 @@
 -- 1 Heaviest Hitters
 SELECT 
-	DISTINCT batting.yearid, 
-  ROUND(AVG(people.weight), 2), 
-  teams.name
+  batting.yearid AS "Year", 
+  ROUND(AVG(people.weight), 2) AS "Avg Weight", 
+  teams.name AS "Team Name"
 FROM people
 INNER JOIN batting
 	ON people.playerid = batting.playerid
@@ -13,9 +13,9 @@ ORDER BY 1 DESC, 2 DESC;
 
 -- 2 Shortest Sluggers
 SELECT 
-	DISTINCT batting.yearid, 
-  ROUND(AVG(people.height), 2), 
-  teams.name
+  batting.yearid AS "Year", 
+  ROUND(AVG(people.height), 2) AS "Avg Height", 
+  teams.name AS "Team Name"
 FROM people
 INNER JOIN batting
 	ON people.playerid = batting.playerid
@@ -26,9 +26,9 @@ ORDER BY 1 DESC, 2 ASC;
 
 -- 3 Biggest Spenders
 SELECT 
-  salaries.yearid,
-  teams.name,
-  SUM(salary)
+  salaries.yearid AS "Year",
+  teams.name AS "Team Name",
+  SUM(salary) AS "Total Salary of All Players on Team"
 FROM salaries
 INNER JOIN teams
 	ON teams.teamid = salaries.teamid
@@ -38,9 +38,9 @@ ORDER BY 1 DESC, 3 DESC;
 -- 4 Biggest Bang For Their Buck in 2010
 SELECT 
   salaries.yearid AS "Year",
-  teams.w,
-  teams.name,
-  ROUND(SUM(salary) / teams.w)
+  teams.name AS "Team Name",
+  teams.w AS "Wins",
+  ROUND(SUM(salary) / teams.w) AS "Cost Per Win"
 FROM salaries
 INNER JOIN teams
 	ON teams.teamid = salaries.teamid
@@ -51,11 +51,12 @@ ORDER BY 4 DESC;
 
 -- 5 Priciest Starter
 SELECT 
-  salaries.yearid,
-  ROUND(salaries.salary / pitching.gs) AS "Cost per Game",
-  people.namefirst,
-  people.namelast,
-  pitching.g
+  salaries.yearid AS "Year",
+  people.namefirst AS "First Name",
+  people.namelast AS "Last Name",
+  ROUND(salaries.salary / pitching.g) AS "Cost per Game",
+  pitching.g AS "Games Played",
+  pitching.gs AS "Games Started"
 FROM salaries
 INNER JOIN pitching
   ON salaries.playerid = pitching.playerid
@@ -64,5 +65,5 @@ INNER JOIN pitching
 INNER JOIN people
 	ON salaries.playerid = people.playerid
 WHERE pitching.gs >= 10
-GROUP BY 1, 2, 3, 4, 5
-ORDER BY 1 DESC, 2 DESC;
+GROUP BY 1, 2, 3, 4, 5, 6
+ORDER BY 1 DESC, 4 DESC;
