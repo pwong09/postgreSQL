@@ -1,0 +1,38 @@
+CREATE TABLE shops (
+  shop_id integer PRIMARY KEY,
+  name varchar(55),
+  address varchar(255),
+  phone varchar(10),
+  price varchar(4),
+  rating decimal
+ );
+ 
+ CREATE TABLE schedules (
+ 	shop_id integer REFERENCES shops(shop_id),
+  day varchar(3),
+  open_time time,
+  close_time time
+ );
+  
+ CREATE TABLE menus (
+   menu_id integer PRIMARY KEY,
+   shop_id integer REFERENCES shops(shop_id)
+ );
+ 
+ CREATE TABLE drinks (
+   drink_id integer PRIMARY KEY,
+   drink_name varchar(75),
+   description varchar(255)
+ );
+ 
+ CREATE TABLE toppings (
+   topping_id integer PRIMARY KEY,
+   topping_name varchar(75),
+   description varchar(255)
+ );
+ 
+ CREATE TABLE menu_items (
+   menu_id integer REFERENCES menus(menu_id),
+   drink_id integer REFERENCES drinks(drink_id),
+   topping_id integer REFERENCES toppings(topping_id)
+ );
