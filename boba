@@ -36,3 +36,101 @@ CREATE TABLE shops (
    drink_id integer REFERENCES drinks(drink_id),
    topping_id integer REFERENCES toppings(topping_id)
  );
+ 
+ --inserting sample shops
+ INSERT INTO shops VALUES (1, 'Bubble World', '1325 Robson St, Vancouver, BC V6E 1C6', '6046898987', '$', 4.0);
+ INSERT INTO shops VALUES (2, 'Happy Lemon Robson', '1188 Robson St, Vancouver BC V6E 1C6', '6044281858', '$', 3.7);
+ INSERT INTO shops VALUES (3, 'Teaspoons & Co', '1020 Howe St, Vancouver, BC V6Z 1P5', '6044286233', '$', 4.7);
+ 
+ --inserting sample data for Bubble World (shop_id = 1)
+ 
+ INSERT INTO schedules VALUES 
+	(1, 'Mon', '11:30', '02:30'),
+  (1, 'Tue', '11:30', '02:30'),
+  (1, 'Wed', '11:30', '02:30'),
+  (1, 'Thu', '11:30', '02:30'),
+  (1, 'Fri', '11:30', '02:30'),
+  (1, 'Sat', '11:30', '02:30'),
+  (1, 'Sun', '11:30', '02:30');
+ 
+ INSERT INTO drinks VALUES 
+	(1, 'Milky Tea'),
+	(2, 'Milky Green Tea'),
+	(3, 'Milky Honey Tea'),
+	(4, 'Milky Honey Green Tea'),
+	(5, 'Milky Almond Tea'),
+	(6, 'Milky Taro Tea'),
+	(7, 'Milky Honeydew Tea'),
+	(8, 'Milky Chocolate Tea'),
+	(9, 'Hokkaido Milky Tea'),
+	(10, 'Okinawa Milky Tea');
+  
+ INSERT INTO toppings VALUES
+	(1, 'pearls'),
+  (2, 'agar jelly'),
+  (3, 'pudding'),
+  (4, 'coffee jelly'),
+  (5, 'red bean'),
+  (6, 'rainbow jelly'),
+  (7, 'mango stars'),
+  (8, 'lychee jelly'),
+  (9, 'grass jelly'),
+  (10, 'chia seeds');
+
+-- inserting sample data for Happy Lemon Robson (shop_id = 2)
+
+INSERT INTO schedules VALUES 
+	(2, 'Mon', '12:30', '22:00'),
+  (2, 'Tue', '12:30', '21:00'),
+  (2, 'Wed', '12:30', '22:00'),
+  (2, 'Thu', '12:30', '22:00'),
+  (2, 'Fri', '12:30', '22:00'),
+  (2, 'Sat', '12:30', '22:00'),
+  (2, 'Sun', '12:30', '22:00');
+ 
+INSERT INTO drinks VALUES
+	(11, 'classic milk tea'),
+  (12, 'pearl milk tea'),
+  (13, 'milk tea w/ taro balls'),
+  (14, 'milk tea w/ oreo & puff cream'),
+  (15, 'pearl milk tea w/ oreo trifle'),
+  (16, 'roasted milk tea'),
+  (17, 'roasted milk tea w/ grass jelly'),
+  (18, 'taro milk tea w/ pearls'),
+  (19, 'pearl milk tea w/ puff cream');
+ 
+INSERT INTO toppings VALUES
+	(11, 'aloe'),
+  (12, 'lychee jello'),
+  (13, 'oreo'),
+  (14, 'puff cream'),
+  (15, 'salted cheese'),
+  (16, 'taro ball'),
+  (17, 'yakult'),
+  (18, 'honey'),
+  (19, 'fresh milk'),
+  (20, 'mashed taro');
+  
+-- inserting sample data for Teaspoons & Co (shop_id = 3)
+
+INSERT INTO schedules VALUES 
+	(3, 'Mon', null, null),
+  (3, 'Tue', '12:00', '18:00'),
+  (3, 'Wed', '12:00', '18:00'),
+  (3, 'Thu', '12:00', '18:00'),
+  (3, 'Fri', '12:00', '18:00'),
+  (3, 'Sat', '12:00', '18:00'),
+  (3, 'Sun', '12:00', '18:00');
+  
+INSERT INTO drinks VALUES
+	(20, 'kurozato', 'hojicha (roasted green tea) sweetened with black sugar'),
+  (21, 'uji matcha', 'premium matcha from Uji, Japan'),
+  (22, 'london fog', 'fragrant Earl Grey with vanilla bean infused sweetener'),
+  (23, 'thai', 'Thai tea with condensed milk'),
+  (24, 'jasmine', 'floral jasmine green tea, shaken with real milk'),
+  (25, 'ca phe', 'traditional roasted coffee beans with notes of chocolate. Sweetened with condensed milk.'),
+  (26, 'rooibos', 'South African tea, caffeine-free, choose from: Vanilla or Chai');
+ 
+INSERT INTO toppings VALUES
+	(21, 'mango jelly'),
+  (22, 'coconut jelly');
