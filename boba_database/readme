@@ -1,0 +1,59 @@
+Codecademy Computer Science Pro track
+
+Off-Platform Project: Designing a Database From Scratch
+  Build a database on a topic of your choice completely from scratch!
+
+1.0 OBJECTIVES:
+    To design a database schema on a topic of your choosing.
+    To implement that schema on your own computer using Postbird.
+
+Part 1 - Research
+Part 2 - Turn diagram into a schema
+Part 3 - Add data to tables
+Part 4 - Edit schema as necessary
+
+-----
+2.0 Data Tables
+
+Main tables:
+  
+  shops - boba shop info
+  schedules - boba shops' operating hours
+  menus - boba shop's menus
+  drinks - boba drinks
+  toppings - boba toppings
+  menu_items - contains menu id, drink id, and topping id
+
+2.1 shops
+
+shop_id - integer unique - primary key
+name - varchar(55) - name of boba shop
+address - varchar(255) - shop's full address including postal code
+phone - varchar(10) - shop's telephone number
+price - varchar(4) - pricing range based on Google maps
+rating - integer - google maps rating 
+
+2.2 schedules
+shop_id - integer - foreign key 
+day - varchar(3) - shorthand day of the week
+open_time - time - time shop opens
+close_time - time - time shop closes
+
+2.3 menus
+menu_id - integer - primary key
+shop_id - integer unique - foreign key - one-to-one relationship
+
+2.4 drinks
+drink_id - integer - primary key
+drink_name - varchar(75) - name of the drink
+description - varchar(255) - description of drink, if any
+
+2.5 toppings
+topping_id - integer - primary key
+topping_name - varchar(75) - name of the topping
+
+2.6 menu_items
+menu_id - integer - foreign key from menus table
+drink_id - integer - foreign key from drinks table
+topping_id - integer - foreign key from toppings table
+composite primary keys - menu_id & drink_id
