@@ -321,3 +321,13 @@ JOIN menus
 JOIN shops
 	ON menus.shop_id = shops.shop_id
 WHERE drinks.drink_name = 'kurozato';
+
+--find out when Happy Lemon Robson is open 
+SELECT 
+	schedules.day,
+  schedules.open_time,
+  schedules.close_time
+FROM shops
+JOIN schedules
+	ON shops.shop_id = schedules.shop_id
+WHERE shops.name = 'Happy Lemon Robson';
