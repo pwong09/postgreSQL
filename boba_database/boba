@@ -35,7 +35,7 @@ CREATE TABLE shops (
    menu_id integer REFERENCES menus(menu_id),
    drink_id integer REFERENCES drinks(drink_id),
    topping_id integer REFERENCES toppings(topping_id),
-   PRIMARY KEY (menu_id, drink_id)
+   PRIMARY KEY (menu_id, drink_id, topping_id)
  );
  
  --inserting sample shops
@@ -80,9 +80,12 @@ CREATE TABLE shops (
 
 INSERT INTO menus VALUES (1, 1);
 
+--update to toppings table and menu_items table, need to provide drinks w/o any toppings and update menu_items accordingly
+INSERT INTO toppings VALUES (0, 'None');
+
 --entering partial data to build Bubble World menu
 INSERT INTO menu_items VALUES
-	(1, 1, NULL),
+	(1, 1, 0),
   	(1, 1, 1),
   	(1, 1, 2),
   	(1, 1, 3),
@@ -93,7 +96,7 @@ INSERT INTO menu_items VALUES
   	(1, 1, 8),
   	(1, 1, 9),
   	(1, 1, 10),
-  	(1, 2, NULL),
+  	(1, 2, 0),
   	(1, 2, 1),
   	(1, 2, 2),
   	(1, 2, 3),
@@ -104,7 +107,7 @@ INSERT INTO menu_items VALUES
   	(1, 2, 8),
   	(1, 2, 9),
   	(1, 2, 10),
-  	(1, 3, NULL),
+  	(1, 3, 0),
   	(1, 3, 1),
   	(1, 3, 2),
   	(1, 3, 3),
@@ -115,13 +118,6 @@ INSERT INTO menu_items VALUES
   	(1, 3, 8),
   	(1, 3, 9),
   	(1, 3, 10);
-
---update to toppings table and menu_items table, need to provide drinks w/o any toppings and update menu_items accordingly
-INSERT INTO toppings VALUES (0, 'None');
-
-UPDATE menu_items
-SET topping_id = 0
-WHERE topping_id IS NULL;
 
 
 -- inserting sample data for Happy Lemon Robson (shop_id = 2)
