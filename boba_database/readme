@@ -88,11 +88,14 @@ name - citext - unique
 2.8 menu_drinks
 menu_id - integer - foreign key from menus table
 drink_id - integer - foreign key from drinks table
+composite primary key - menu_id, drink_id
 
 2.9 menu_toppings
 menu_id - integer - foreign key from menus table
 topping_id - integer - foreign key from toppings table
+composite primary key - menu_id, topping_id
 
 2.11 menu_dairy
 menu_id - integer - foreign key from menus table
 dairy_id - integer - foreign key from dairy_alternatives table
+composite primary key - menu_id, dairy_id
