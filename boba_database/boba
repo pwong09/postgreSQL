@@ -788,3 +788,207 @@ CREATE TABLE menu_dairy (
   menu_id integer REFERENCES menus(menu_id),
   dairy_id integer REFERENCES dairy_alternatives(dairy_id)
   );
+
+ALTER TABLE dairy_alternatives
+DROP COLUMN menu_id;
+
+ALTER TABLE dairy_alternatives
+DROP COLUMN almond_milk,
+DROP COLUMN oat_milk,
+DROP COLUMN rice_milk,
+DROP COLUMN soy_milk,
+DROP COLUMN coconut_milk,
+DROP COLUMN lactose_free;
+
+ALTER TABLE dairy_alternatives
+ADD COLUMN name varchar(100) UNIQUE;
+
+CREATE EXTENSION IF NOT EXISTS citext;
+
+ALTER TABLE dairy_alternatives
+ALTER COLUMN name TYPE citext;
+
+DELETE FROM dairy_alternatives
+WHERE dairy_id = 1 OR dairy_id = 2;
+
+INSERT INTO dairy_alternatives VALUES
+  (1, 'almond milk'),
+  (2, 'coconut milk'),
+  (3, 'lactose-free'),
+  (4, 'oat milk'),
+  (5, 'rice milk'),
+  (6, 'soy milk');
+  
+SELECT pg_size_pretty(pg_total_relation_size('dairy_alternatives')) as dairy_alternatives;
+--returned 48 kB (twice the size as before)
+
+INSERT INTO menu_drinks VALUES
+  (1, 1),
+  (1, 2),
+  (1, 3),
+  (1, 4),
+  (1, 5),
+  (1, 6),
+  (1, 7),
+  (1, 8),
+  (1, 9),
+  (1, 10),
+  (2, 11),
+  (2, 12),
+  (2, 13),
+  (2, 14),
+  (2, 15),
+  (2, 16),
+  (2, 17),
+  (2, 18),
+  (2, 19),
+  (3, 20),
+  (3, 21),
+  (3, 22),
+  (3, 23),
+  (3, 24),
+  (3, 25),
+  (3, 26),
+  (5, 27),
+  (5, 28),
+  (5, 29),
+  (5, 30),
+  (5, 31),
+  (5, 32),
+  (5, 33),
+  (6, 34),
+  (6, 30),
+  (6, 35),
+  (6, 36),
+  (6, 11),
+  (6, 12),
+  (7, 37),
+  (7, 38),
+  (7, 39),
+  (7, 40),
+  (8, 41),
+  (8, 42),
+  (8, 43),
+  (8, 44),
+  (8, 30),
+  (9, 12),
+  (9, 45),
+  (9, 46),
+  (10, 11),
+  (10, 47),
+  (10, 48),
+  (10, 49),
+  (10, 50),
+  (10, 51),
+  (10, 52),
+  (10, 53);
+  
+INSERT INTO menu_toppings VALUES 
+  (1, 1),
+  (1, 2),
+  (1, 3),
+  (1, 4),
+  (1, 5),
+  (1, 6),
+  (1, 7),
+  (1, 8),
+  (1, 9),
+  (1, 10),
+  (2, 1),
+  (2, 3),
+  (2, 5),
+  (2, 8),
+  (2, 9),
+  (2, 11),
+  (2, 12),
+  (2, 13),
+  (2, 14),
+  (2, 15),
+  (2, 16),
+  (2, 17),
+  (2, 18),
+  (2, 19),
+  (2, 20),
+  (3, 1),
+  (3, 8),
+  (3, 9),
+  (3, 21),
+  (3, 22),
+  (5, 1),
+  (5, 3),
+  (5, 5),
+  (5, 9),
+  (5, 22),
+  (5, 23),
+  (5, 24),
+  (5, 25),
+  (5, 26),
+  (6, 1),
+  (6, 3),
+  (6, 4),
+  (6, 5),
+  (6, 9),
+  (6, 27),
+  (6, 28),
+  (6, 46),
+  (7, 1),
+  (7, 11),
+  (7, 16),
+  (7, 22),
+  (7, 23),
+  (7, 29),
+  (7, 30),
+  (7, 31),
+  (7, 32),
+  (7, 33),
+  (7, 34),
+  (7, 35),
+  (7, 36),
+  (8, 1),
+  (8, 22),
+  (8, 23),
+  (8, 37),
+  (8, 38),
+  (8, 39),
+  (9, 1),
+  (9, 9),
+  (9, 11),
+  (9, 22),
+  (9, 40),
+  (10, 1),
+  (10, 3),
+  (10, 5),
+  (10, 8),
+  (10, 11),
+  (10, 41),
+  (10, 42),
+  (10, 43),
+  (10, 44),
+  (10, 45);
+
+INSERT INTO menu_dairy VALUES
+  (3, 2),
+  (3, 3),
+  (3, 4),
+  (1, 1),
+  (1, 6);
+  
+--query for drink menu from Bubble World
+SELECT 
+  	drinks.drink_name as Bubble_World_Drinks
+FROM menus
+JOIN menu_drinks
+	ON menus.menu_id = menu_drinks.menu_id
+JOIN drinks
+	ON menu_drinks.drink_id = drinks.drink_id
+WHERE menus.menu_id = 1;
+
+--query for topping options from Bubble World
+SELECT
+		toppings.topping_name as Bubble_World_Toppings
+FROM toppings
+JOIN menu_toppings
+	ON toppings.topping_id = menu_toppings.topping_id
+JOIN menus
+	ON menus.menu_id = menu_toppings.menu_id
+WHERE menus.shop_id = 1;
