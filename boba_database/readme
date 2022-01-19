@@ -22,6 +22,9 @@ Part 4 - Edit schema as necessary
 - Update database to check if data stays intact - ex. add constraints & roles
 - Update database to ensure database stays fast - ex. add indexes, normalize, actively monitor & maintain database
 
+1.2 UPDATES
+- boba_v1 contains both ORIGINAL schema (including menu_items) and line-by-line updates to NEW schema (no menu_items, separating menu_items into menu_drinks, menu_toppings, menu_dairy)
+
 -----
 2.0 Data Tables
 
@@ -32,8 +35,11 @@ Main tables:
   menus - boba shop's menus
   drinks - boba drinks
   toppings - boba toppings
-  menu_items - contains menu id, drink id, and topping id
-  dairy_alternatives - contains menu_id, various non-dairy alternatives
+  --REMOVED menu_items - contains menu id, drink id, and topping id
+  dairy_alternatives - contains menu_id, dairy_id, name of dairy alternative
+  menu_drinks - contains menu_id & drink_id
+  menu_toppings - contains menu_id & topping_id
+  menu_dairy - contains menu_id and dairy_id
 
 2.1 shops
 
@@ -43,6 +49,8 @@ address - varchar(255) - shop's full address including postal code
 phone - varchar(10) - shop's telephone number
 price - varchar(4) - pricing range based on Google maps
 rating - integer - google maps rating 
+UPDATE constraint 1 - check phone string is 10 characters long
+UPDATE constraint 2 - check phone string contains only numbers between 0-9
 
 2.2 schedules
 shop_id - integer - foreign key 
@@ -64,18 +72,25 @@ description - varchar(255) - description of drink, if any
 topping_id - integer - primary key
 topping_name - varchar(75) - name of the topping
 
-2.6 menu_items
-menu_id - integer - foreign key from menus table
-drink_id - integer - foreign key from drinks table
-topping_id - integer - foreign key from toppings table
-composite primary keys - menu_id & drink_id
+--removed table below
+--2.6 menu_items
+--menu_id - integer - foreign key from menus table
+--drink_id - integer - foreign key from drinks table
+--topping_id - integer - foreign key from toppings table
+--composite primary keys - menu_id & drink_id
 
 2.7 dairy_alternatives
 dairy_id - integer - primary key
+name - citext - unique
+
+2.8 menu_drinks
 menu_id - integer - foreign key from menus table
-almond_milk - boolean
-oat_milk - boolean
-rice_milk - boolean
-soy_milk - boolean
-coconut_milk - boolean
-lactose_free - boolean
+drink_id - integer - foreign key from drinks table
+
+2.9 menu_toppings
+menu_id - integer - foreign key from menus table
+topping_id - integer - foreign key from toppings table
+
+2.11 menu_dairy
+menu_id - integer - foreign key from menus table
+dairy_id - integer - foreign key from dairy_alternatives table
