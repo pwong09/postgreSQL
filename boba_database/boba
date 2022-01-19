@@ -1045,3 +1045,96 @@ ADD CHECK (phone ~ '^[0-9]*$');
 ALTER TABLE shops
 ADD CHECK (phone ~ '^\d{9}|\d{10}$');
 
+INSERT INTO toppings VALUES (47, 'cheese cover');
+INSERT INTO menu_toppings VALUES (8, 47);
+
+INSERT INTO shops VALUES (4, 'Boba Run', '102 West Hastings St, Vancouver, BC V6B 1G8', '6044235890', '$$', 4.7);
+INSERT INTO menus VALUES (4, 4);
+
+INSERT INTO schedules VALUES
+  (4, 'Mon', '10:00', '17:00'),
+  (4, 'Tue', '10:00', '17:00'),
+  (4, 'Wed', '10:00', '17:00'),
+  (4, 'Thu', '10:00', '17:00'),
+  (4, 'Fri', '10:00', '17:00'),
+  (4, 'Sat', '10:00', '19:00'),
+  (4, 'Sun', '11:00', '17:00');
+  
+INSERT INTO drinks VALUES
+  (54, 'yin yang milk tea', 'A popular Hong Kong favorite combining the best of two worlds - tea(yin) + coffee(yang)! Freshly brewed Assam black tea topped off with a double shot of Prototype Espresso finishing off with a drizzle of evaporated milk.'),
+  (55, 'cafe latte', 'Who loves Coffee AND Boba? This drink is for you! 2 shots of Espresso poured over your choice of dairy, using premium beans from Prototype Coffee.'),
+  (56, 'assam black tea', 'A full-bodied tea with strong malty notes paired with our organic dairy. Served hot and cold.'),
+  (57, 'hk style', 'A strongly brewed black tea beautifully balanced with the addition of evaporated milk. Served hot and cold.'),
+  (58, 'genmaicha', 'A blend of organic sencha and toasted rice producing a fragrant and nutty flavour. Served hot and cold.'),
+  (59, 'thai iced tea', 'A spiced black tea that is creamy, rich and sweet. A delicious Thai treat! Served cold only.'),
+  (60, 'earl grey', 'Black tea infused with bergamot oil paired with our organic dairy. Served hot and cold.'),
+  (61, 'hojicha', 'Organic roasted green tea from Uji, Japan. Rich and nutty sweetened with muscovado sugar. Served hot and cold.'),
+  (62, 'horchata', 'A delicious cinnamon flavoured rice milk beverage with the addition of whole milk for extra creaminess! Served cold only.'),
+  (63, 'vietnamese cafe sua da', 'A rich and flavourful Vietnamese style café latte sweetened with condensed milk. Served cold only.'),
+  (64, 'korean oat ''n barley latte', 'Roasted Korean barley tea paired with oat milk. Creamy and nutty and utterly delightful! Served hot and cold.'),
+  (65, 'honeycomb dalgona latte', 'Korean honeycomb toffee crumbs served over your choice of milk. The toffee melts into your drink creating a "caramelly" flavour. Served cold only.'),
+  (66, 'jolly pong shake', 'Korea''s popular cereal snack in the form of a milkshake. It is truly a jolly good drink! Comes in 5 flavors: Chocolate, Matcha, Hojicha, Genmaicha and Soybean powder. Served cold only.'),
+  (67, 'banana milk latte', 'Our take on the famous Bingrae''s Korean banana milk using fresh bananas and real milk! Served cold only.'),
+  (68, 'roasted soy latte', 'A rich and creamy latte made from roasted soybean powder. Served hot and cold.'),
+  (69, 'sparkling honey yu-ja tea', 'A refreshing and fizzy Korean citron drink. Served cold only.'),
+  (70, 'korean strawberry milk', 'Sweet and tart fresh strawberry milk using house made strawberry puree. Served cold only.'),
+  (71, 'sparkling korean strawberry', 'House made strawberry puree topped off with sparkling water. Served cold only.'),
+  (72, 'strawberry pepero shake', 'Made with real strawberries, organic milk, vanilla ice cream, organic cane syrup and strawberry pepero sticks. It taste just like your favorite childhood strawberry pepero sticks!'),
+  (73, 'black sesame latte', 'House made black sesame paste paired with our organic milk. Rich and nutty in flavour. Served hot and cold.'),
+  (74, 'matcha latte', 'Organic hand whisked matcha paired with your choice of milk. Served hot and cold.'),
+  (75, 'dalgona matcha', 'Korean honeycomb toffee crumbs served over our signature organic matcha latte. Served cold only.'),
+  (76, 'red bean matcha', 'Organic matcha latte paired with our sweetened red bean topping. Served cold only.'),
+  (77, 'matcha mud slush', 'Creamy chocolate slush poured over hand whisked organic matcha. Served cold only.'),
+  (78, 'yu-ja matcha slush', 'Korean honey citron slush layered over our hand whisked organic matcha. Served cold only.'),
+  (79, 'black sugar matcha latte', 'Organic matcha latte sweetened with Muscovado syrup. Served hot and cold.'),
+  (80, 'strawberry matcha latte', 'Hand whisked organic matcha layered over fresh milk and house made strawberry puree. Served cold only.'),
+  (81, 'blueberry matcha latte', 'Hand whisked organic matcha layered over fresh milk and house made blueberry juice.'),
+  (82, 'pineapple matcha latte', 'Hand whisked Organic Matcha over fresh milk and house made pineapple purée.');
+
+INSERT INTO toppings VALUES
+  (48, 'crystal boba'),
+  (49, 'organic chia'),
+  (50, 'honeycomb dalgona'),
+  (51, 'banana milk pudding');
+
+INSERT INTO menu_dairy VALUES 
+  (4, 1),
+  (4, 4);
+
+INSERT INTO menu_toppings VALUES
+  (4, 1),
+  (4, 8),
+  (4, 11),
+  (4, 48),
+  (4, 49),
+  (4, 51);
+
+INSERT INTO menu_drinks VALUES
+  (4, 54),
+  (4, 55),
+  (4, 56),
+  (4, 57),
+  (4, 58),
+  (4, 59),
+  (4, 60),
+  (4, 61),
+  (4, 62),
+  (4, 63),
+  (4, 64),
+  (4, 65),
+  (4, 66),
+  (4, 67),
+  (4, 68),
+  (4, 69),
+  (4, 70),
+  (4, 71),
+  (4, 72),
+  (4, 73),
+  (4, 74),
+  (4, 75),
+  (4, 76),
+  (4, 78),
+  (4, 79),
+  (4, 80),
+  (4, 81),
+  (4, 82);
