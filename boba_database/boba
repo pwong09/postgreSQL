@@ -772,3 +772,19 @@ WHERE drinks.drink_name = 'kurozato';
 --returned plan with 17 lines to execute / Planning Time: 1.260 ms / Execution Time: 0.700 ms
 
 DROP INDEX IF EXISTS drink_name_idx;
+
+--testing to improve schema for data entry and overlapping data (especially with drinks x toppings combo)
+CREATE TABLE menu_drinks (
+  menu_id integer REFERENCES menus(menu_id),
+  drink_id integer REFERENCES drinks(drink_id)
+  );
+
+CREATE TABLE menu_toppings (
+  menu_id integer REFERENCES menus(menu_id),
+  topping_id integer REFERENCES toppings(topping_id)
+  );
+ 
+CREATE TABLE menu_dairy (
+  menu_id integer REFERENCES menus(menu_id),
+  dairy_id integer REFERENCES dairy_alternatives(dairy_id)
+  );
