@@ -1005,7 +1005,7 @@ SELECT pg_size_pretty(pg_total_relation_size('shops')) as shops,
   pg_size_pretty(pg_total_relation_size('menus')) as menus,
   pg_size_pretty(pg_total_relation_size('schedules')) as schedules,
   pg_size_pretty(pg_total_relation_size('dairy_alternatives')) as dairy_alternatives;
---returned 64 kB, 24 kB, 24 kB, 8192 bytes, 8192 bytes, 24 kB, 56 kB, 48 kB = 265 kB
+--returned 64 kB, 24 kB, 24 kB, 8192 bytes, 8192 bytes, 8192 bytes, 24 kB, 56 kB, 48 kB = 265 kB
 
 --indexing
 EXPLAIN ANALYZE SELECT 
@@ -1036,7 +1036,7 @@ SELECT pg_size_pretty(pg_total_relation_size('shops')) as shops,
   pg_size_pretty(pg_total_relation_size('menus')) as menus,
   pg_size_pretty(pg_total_relation_size('schedules')) as schedules,
   pg_size_pretty(pg_total_relation_size('dairy_alternatives')) as dairy_alternatives;
---returned 32 kB, 24 kB, 40 kB, 8192 bytes, 8192 bytes, 24 kB, 24 kB, 48 kB = 217 kB
+--returned 32 kB, 24 kB, 40 kB, 8192 bytes, 8192 bytes, 8192 bytes, 24 kB, 24 kB, 48 kB = 217 kB
 
 INSERT INTO dairy_alternatives VALUES (0, 'No alternatives / No info provided');
 
@@ -1138,3 +1138,30 @@ INSERT INTO menu_drinks VALUES
   (4, 80),
   (4, 81),
   (4, 82);
+
+--checking storage
+SELECT pg_size_pretty(pg_total_relation_size('shops')) as shops,
+  pg_size_pretty(pg_total_relation_size('toppings')) as toppings,
+  pg_size_pretty(pg_total_relation_size('drinks')) as drinks, 
+  pg_size_pretty(pg_total_relation_size('menu_drinks')) as menu_drinks,
+  pg_size_pretty(pg_total_relation_size('menu_toppings')) as menu_toppings,
+  pg_size_pretty(pg_total_relation_size('menu_dairy')) as menu_dairy,
+  pg_size_pretty(pg_total_relation_size('menus')) as menus,
+  pg_size_pretty(pg_total_relation_size('schedules')) as schedules,
+  pg_size_pretty(pg_total_relation_size('dairy_alternatives')) as dairy_alternatives;
+--32 kB, 24 kB, 72 kB, 8192 bytes, 8192 bytes, 8192 bytes, 24 kB, 24 kB, 48 kB = 249 kB
+
+VACUUM FULL;
+
+SELECT pg_size_pretty(pg_total_relation_size('shops')) as shops,
+  pg_size_pretty(pg_total_relation_size('toppings')) as toppings,
+  pg_size_pretty(pg_total_relation_size('drinks')) as drinks, 
+  pg_size_pretty(pg_total_relation_size('menu_drinks')) as menu_drinks,
+  pg_size_pretty(pg_total_relation_size('menu_toppings')) as menu_toppings,
+  pg_size_pretty(pg_total_relation_size('menu_dairy')) as menu_dairy,
+  pg_size_pretty(pg_total_relation_size('menus')) as menus,
+  pg_size_pretty(pg_total_relation_size('schedules')) as schedules,
+  pg_size_pretty(pg_total_relation_size('dairy_alternatives')) as dairy_alternatives;
+--32 kB, 24 kB, 48 kB, 8192 bytes, 8192 bytes, 8192 bytes, 24 kB, 24 kB, 48 kB = 225 kB
+
+
