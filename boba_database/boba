@@ -233,7 +233,7 @@ INSERT INTO toppings VALUES
 
 INSERT INTO menus VALUES (3, 3);
 
---entering partial data to build menu for
+--entering partial data to build menu for Teaspoons & Co
 INSERT INTO menu_items VALUES
 	(3, 20, 0),
   	(3, 20, 1),
@@ -327,3 +327,94 @@ FROM shops
 JOIN schedules
 	ON shops.shop_id = schedules.shop_id
 WHERE shops.name = 'Happy Lemon Robson';
+
+
+--following section done to fulfill Codecademy's Database Portfolio Project, see Readme for more info
+ALTER TABLE schedules
+ADD PRIMARY KEY (shop_id, day);
+
+CREATE TABLE dairy_alternatives (
+  dairy_id integer PRIMARY KEY,
+  menu_id integer REFERENCES menus(menu_id) NOT NULL,
+  almond_milk boolean,
+  oat_milk boolean,
+  rice_milk boolean,
+  soy_milk boolean
+  );
+ 
+ALTER TABLE dairy_alternatives 
+ADD COLUMN lactose_free boolean,
+ADD COLUMN coconut_milk boolean;
+
+--adding dairy alternatives provided by Teaspoons & Co.
+INSERT INTO dairy_alternatives (dairy_id, menu_id, oat_milk, coconut_milk, lactose_free) VALUES
+(1, 3, true, true, true);
+
+--adding dairy alternatives provided by Bubble World
+INSERT INTO dairy_alternatives (dairy_id, menu_id, almond_milk, soy_milk) VALUES
+(2, 1, true, true);
+
+--adding more shops, more data
+INSERT INTO shops VALUES 
+	(4, 'Boba Run', '102 West Hastings St, Vancouver, BC V6B 1G8', '6044235890', '$$', 4.7),
+	(5, 'CoCo Fresh Tea & Juice', '655 W Pender St, Vancouver, BC V6C 1X6', '6043360929', '$', 4.2),
+	(6, 'Gong Cha', '386 Robson St, Vancouver, BC V6G 2B2', '7783793806', '$', 3.8),
+	(7, 'The Alley', '985 Hornby St, Vancouver, BC V6Z 1V3', '6043369893', '$$', 4),
+	(8, 'Ben Gong''s Tea (English Bay)', '1112 Denman St, Vancouver, BC V6G 2MB', '6043369095', '$', 4.6),
+	(9, 'Chun Fun How Vancouver', '1067 W Broadway, Vancouver, BC V6H 1E2', '6043366922', '$$', 4.4),
+	(10, 'Sharetea', '1274 Robson St, Vancouver, BC V6E 3Z6', '6046999119', '$', 3.7);
+
+--adding new shops' hours
+INSERT INTO schedules VALUES
+  (4, 'Mon', '10:00', '17:00'),
+  (4, 'Tue', '10:00', '17:00'),
+  (4, 'Wed', '10:00', '17:00'),
+  (4, 'Thu', '10:00', '17:00'),
+  (4, 'Fri', '10:00', '17:00'),
+  (4, 'Sat', '10:00', '19:00'),
+  (4, 'Sun', '10:00', '17:00'),
+  (5, 'Mon', '11:30', '18:30'),
+  (5, 'Tue', '11:30', '18:30'),
+  (5, 'Wed', '11:30', '18:30'),
+  (5, 'Thu', '11:30', '18:30'),
+  (5, 'Fri', '11:30', '18:30'),
+  (5, 'Sat', '11:30', '18:30'),
+  (5, 'Sun', '11:30', '18:30'),
+  (6, 'Mon', '11:30', '20:00'),
+  (6, 'Tue', '11:30', '20:00'),
+  (6, 'Wed', '11:30', '20:00'),
+  (6, 'Thu', '11:30', '20:00'),
+  (6, 'Fri', '11:30', '20:00'),
+  (6, 'Sat', '11:30', '20:00'),
+  (6, 'Sun', '11:30', '20:00'),
+  (7, 'Mon', '12:00', '21:00'),
+  (7, 'Tue', '12:00', '21:00'),
+  (7, 'Wed', '12:00', '21:00'),
+  (7, 'Thu', '12:00', '21:00'),
+  (7, 'Fri', '12:00', '21:00'),
+  (7, 'Sat', '12:00', '21:00'),
+  (7, 'Sun', '12:00', '21:00'),
+  (8, 'Mon', '12:00', '22:00'),
+  (8, 'Tue', '12:00', '22:00'),
+  (8, 'Wed', '12:00', '22:00'),
+  (8, 'Thu', '12:00', '22:00'),
+  (8, 'Fri', '11:00', '23:00'),
+  (8, 'Sat', '11:00', '23:00'),
+  (8, 'Sun', '11:00', '22:00'),
+  (9, 'Mon', '11:00', '21:30'),
+  (9, 'Tue', '11:00', '21:30'),
+  (9, 'Wed', '11:00', '21:30'),
+  (9, 'Thu', '11:00', '21:30'),
+  (9, 'Fri', '11:00', '00:30'),
+  (9, 'Sat', '11:00', '00:30'),
+  (9, 'Sun', '11:00', '21:30'),
+  (10, 'Mon', '14:30', '22:30'),
+  (10, 'Tue', '14:30', '22:30'),
+  (10, 'Wed', '14:30', '22:30'),
+  (10, 'Thu', '14:30', '22:30'),
+  (10, 'Fri', '13:00', '23:00'),
+  (10, 'Sat', '13:00', '23:00'),
+  (10, 'Sun', '13:00', '23:00');
+  
+  
+
