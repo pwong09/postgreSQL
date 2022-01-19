@@ -726,7 +726,7 @@ SELECT pg_size_pretty(pg_total_relation_size('shops')) as shops,
   pg_size_pretty(pg_total_relation_size('menus')) as menus,
   pg_size_pretty(pg_total_relation_size('schedules')) as schedules,
   pg_size_pretty(pg_total_relation_size('dairy_alternatives')) as dairy_alternatives;
---returned 32 kB, 24kB, 24 kB, 64 kB, 24 kB, 24 kB, 24 kB respectively
+--returned 32 kB, 24kB, 24 kB, 64 kB, 24 kB, 24 kB, 24 kB respectively = 216 kB
 
 --checking dead v live tuples
 SELECT relname,
@@ -983,6 +983,8 @@ JOIN drinks
 	ON menu_drinks.drink_id = drinks.drink_id
 WHERE menus.menu_id = 1;
 
+DROP TABLE menu_items;
+
 --query for topping options from Bubble World
 SELECT
 		toppings.topping_name as Bubble_World_Toppings
@@ -992,3 +994,54 @@ JOIN menu_toppings
 JOIN menus
 	ON menus.menu_id = menu_toppings.menu_id
 WHERE menus.shop_id = 1;
+
+--storage analysis
+SELECT pg_size_pretty(pg_total_relation_size('shops')) as shops,
+  pg_size_pretty(pg_total_relation_size('toppings')) as toppings,
+  pg_size_pretty(pg_total_relation_size('drinks')) as drinks, 
+  pg_size_pretty(pg_total_relation_size('menu_drinks')) as menu_drinks,
+  pg_size_pretty(pg_total_relation_size('menu_toppings')) as menu_toppings,
+  pg_size_pretty(pg_total_relation_size('menu_dairy')) as menu_dairy,
+  pg_size_pretty(pg_total_relation_size('menus')) as menus,
+  pg_size_pretty(pg_total_relation_size('schedules')) as schedules,
+  pg_size_pretty(pg_total_relation_size('dairy_alternatives')) as dairy_alternatives;
+--returned 64 kB, 24 kB, 24 kB, 8192 bytes, 8192 bytes, 24 kB, 56 kB, 48 kB = 265 kB
+
+--indexing
+EXPLAIN ANALYZE SELECT 
+	DISTINCT drinks.drink_name,
+  	shops.name as shop_name
+FROM drinks
+JOIN menu_drinks
+	ON drinks.drink_id = menu_drinks.drink_id
+JOIN menus
+	ON menu_drinks.menu_id = menus.menu_id
+JOIN shops
+	ON menus.shop_id = shops.shop_id
+WHERE drinks.drink_name = 'kurozato';
+--18 lines in plan query, Planning Time: 0.972 ms, Execution Time: 0.230 ms
+
+CREATE INDEX drink_name_idx ON drinks (drink_name);
+--18 lines in plan query, Planning Time: 1.054 ms, Execution Time: 0.176 ms
+
+VACUUM FULL;
+
+--storage analysis
+SELECT pg_size_pretty(pg_total_relation_size('shops')) as shops,
+  pg_size_pretty(pg_total_relation_size('toppings')) as toppings,
+  pg_size_pretty(pg_total_relation_size('drinks')) as drinks, 
+  pg_size_pretty(pg_total_relation_size('menu_drinks')) as menu_drinks,
+  pg_size_pretty(pg_total_relation_size('menu_toppings')) as menu_toppings,
+  pg_size_pretty(pg_total_relation_size('menu_dairy')) as menu_dairy,
+  pg_size_pretty(pg_total_relation_size('menus')) as menus,
+  pg_size_pretty(pg_total_relation_size('schedules')) as schedules,
+  pg_size_pretty(pg_total_relation_size('dairy_alternatives')) as dairy_alternatives;
+--returned 32 kB, 24 kB, 40 kB, 8192 bytes, 8192 bytes, 24 kB, 24 kB, 48 kB = 217 kB
+
+INSERT INTO dairy_alternatives VALUES (0, 'No alternatives / No info provided');
+
+ALTER TABLE shops
+ADD CHECK (phone ~ '^[0-9]*$');
+ALTER TABLE shops
+ADD CHECK (phone ~ '^\d{9}|\d{10}$');
+
