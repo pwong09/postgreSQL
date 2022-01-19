@@ -1,7 +1,9 @@
 Codecademy Computer Science Pro track
 
-Off-Platform Project: Designing a Database From Scratch
+1.0 Off-Platform Project: Designing a Database From Scratch
   Build a database on a topic of your choice completely from scratch!
+
+1.1 Database Module Portfolio Project
 
 1.0 OBJECTIVES:
     To design a database schema on a topic of your choosing.
@@ -11,6 +13,14 @@ Part 1 - Research
 Part 2 - Turn diagram into a schema
 Part 3 - Add data to tables
 Part 4 - Edit schema as necessary
+
+1.1 OBJECTIVES
+
+- Create an entity relationship diagram
+- Create schema using PostgreSQL
+- Populate with data
+- Update database to check if data stays intact - ex. add constraints & roles
+- Update database to ensure database stays fast - ex. add indexes, normalize, actively monitor & maintain database
 
 -----
 2.0 Data Tables
@@ -23,6 +33,7 @@ Main tables:
   drinks - boba drinks
   toppings - boba toppings
   menu_items - contains menu id, drink id, and topping id
+  dairy_alternatives - contains menu_id, various non-dairy alternatives
 
 2.1 shops
 
@@ -38,6 +49,7 @@ shop_id - integer - foreign key
 day - varchar(3) - shorthand day of the week
 open_time - time - time shop opens
 close_time - time - time shop closes
+UPDATE - composite primary key (shop_id, day)
 
 2.3 menus
 menu_id - integer - primary key
@@ -57,3 +69,13 @@ menu_id - integer - foreign key from menus table
 drink_id - integer - foreign key from drinks table
 topping_id - integer - foreign key from toppings table
 composite primary keys - menu_id & drink_id
+
+2.7 dairy_alternatives
+dairy_id - integer - primary key
+menu_id - integer - foreign key from menus table
+almond_milk - boolean
+oat_milk - boolean
+rice_milk - boolean
+soy_milk - boolean
+coconut_milk - boolean
+lactose_free - boolean
