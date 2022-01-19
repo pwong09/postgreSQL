@@ -24,6 +24,8 @@ Part 4 - Edit schema as necessary
 
 1.2 UPDATES
 - boba_v1 contains both ORIGINAL schema (including menu_items) and line-by-line updates to NEW schema (no menu_items, separating menu_items into menu_drinks, menu_toppings, menu_dairy)
+- boba_v2 is written based on NEW schema to check for significant difference in database storage & speed compared to v1
+
 
 -----
 2.0 Data Tables
