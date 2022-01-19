@@ -320,7 +320,7 @@ WHERE drinks.drink_name = 'kurozato';
 
 --find out when Happy Lemon Robson is open 
 SELECT 
-	schedules.day,
+  schedules.day,
   schedules.open_time,
   schedules.close_time
 FROM shops
@@ -709,3 +709,66 @@ INSERT INTO menu_items VALUES
   (10, 53, 43),
   (10, 53, 44),
   (10, 53, 45);
+
+--checking database 
+SELECT relname,
+	last_vacuum,
+  last_autovacuum,
+  last_analyze
+FROM pg_stat_all_tables;
+--returned null for all
+
+--relation size of all tables
+SELECT pg_size_pretty(pg_total_relation_size('shops')) as shops,
+  pg_size_pretty(pg_total_relation_size('toppings')) as toppings,
+  pg_size_pretty(pg_total_relation_size('drinks')) as drinks, 
+  pg_size_pretty(pg_total_relation_size('menu_items')) as menu_items,
+  pg_size_pretty(pg_total_relation_size('menus')) as menus,
+  pg_size_pretty(pg_total_relation_size('schedules')) as schedules,
+  pg_size_pretty(pg_total_relation_size('dairy_alternatives')) as dairy_alternatives;
+--returned 32 kB, 24kB, 24 kB, 64 kB, 24 kB, 24 kB, 24 kB respectively
+
+--checking dead v live tuples
+SELECT relname,
+	n_dead_tup,
+  n_live_tup
+FROM pg_stat_all_tables
+WHERE relname = 'shops' OR relname = 'schedules' OR relname = 'menu_items';
+--returned shops with 23 dead / 9 live, schedules with 8 dead / 63 live, menu_items with 33 dead / 341 live
+
+--must run below VACUUM statements separately on Postbird
+--VACUUM menu_items;
+--VACUUM shops;
+--VACUUM schedules;
+
+
+--analyzing need for indexes
+EXPLAIN ANALYZE SELECT 
+	DISTINCT drinks.drink_name,
+  	shops.name as shop_name
+FROM drinks
+JOIN menu_items
+	ON drinks.drink_id = menu_items.drink_id
+JOIN menus
+	ON menu_items.menu_id = menus.menu_id
+JOIN shops
+	ON menus.shop_id = shops.shop_id
+WHERE drinks.drink_name = 'kurozato';
+--returned plan with 17 lines to execute / Planning Time: 0.873 ms / Execution Time: 0.518 ms
+
+CREATE INDEX drink_name_idx ON drinks (drink_name);
+
+EXPLAIN ANALYZE SELECT 
+	DISTINCT drinks.drink_name,
+  	shops.name as shop_name
+FROM drinks
+JOIN menu_items
+	ON drinks.drink_id = menu_items.drink_id
+JOIN menus
+	ON menu_items.menu_id = menus.menu_id
+JOIN shops
+	ON menus.shop_id = shops.shop_id
+WHERE drinks.drink_name = 'kurozato';
+--returned plan with 17 lines to execute / Planning Time: 1.260 ms / Execution Time: 0.700 ms
+
+DROP INDEX IF EXISTS drink_name_idx;
