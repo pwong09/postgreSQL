@@ -567,3 +567,12 @@ WHERE drinks.drink_name = 'kurozato';
 CREATE INDEX drink_name_idx ON drinks (drink_name);
 
 --after index, 19 lines, Planning Time: 0.994 ms, Execution Time: 0.179 ms
+
+ALTER TABLE menu_dairy
+ADD PRIMARY KEY (menu_id, dairy_id);
+
+ALTER TABLE menu_drinks
+ADD PRIMARY KEY (menu_id, drink_id);
+
+ALTER TABLE menu_toppings
+ADD PRIMARY KEY (menu_id, topping_id);
